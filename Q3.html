@@ -10,6 +10,9 @@
       color: #333;
       padding: 30px;
       line-height: 1.6;
+      text-align: center;
+      max-width: 800px;
+      margin: 0px auto;
     }
 
     h1 {
@@ -110,13 +113,14 @@
       overflow-y: auto;
       font-family: 'Courier New', monospace;
       font-size: 14px;
+      text-align: left;
     }</style>
 </head>
 <body>
   <h1>🔐 자물쇠 시뮬레이터</h1>
 
-  <label>버튼 개수 (n): <input type="number" id="nInput" value="4" min="1" max = "8"/></label><br><br>
-  <label>필요한 시퀀스 길이 (k): <input type="number" id="kInput" value="2" min="1" max="8"/></label><br><br>
+  <label>버튼 개수 (n): <input type="number" id="nInput" value="4" min="1" max = "6"/></label><br><br>
+  <label>필요한 시퀀스 길이 (k): <input type="number" id="kInput" value="2" min="1" max="6"/></label><br><br>
 
   <button onclick="runAutoMode()" class="nth-of-type1">▶️ 자동 시뮬레이션 모드 (이론)</button>
   <button onclick="runManualMode()" class="nth-of-type2">🎮 사용자 체험 모드</button>
@@ -170,11 +174,11 @@
       ans += i;
       // 단계와 시도 위치, 왜 틀렸는지 설명 추가
       if(i === 1) {
-        steps.push(`[1단계] 버튼 ${j} → ❌ 틀렸어요. (첫 번째 버튼이 ${j}은 아닙니다.)`);
+        steps.push(`[1단계] 버튼 ${j} → ❌ 틀렸어요. (첫 번째 버튼이 ${j}은 아닙니다.)\t현재까지 총 ${ans}번 버튼을 누름.`);
       } else {
         // i단계일 때, 앞단계 정답(●) 표시와 현재 시도 버튼 설명
         const triedButtons = Array(i - 1).fill('●').join(' ');
-        steps.push(`[${i}단계] 시도: ${triedButtons} ${j} → ❌ 틀렸어요. (${i}번째 버튼이 ${j}은 아닙니다.)`);
+        steps.push(`[${i}단계] 시도: ${triedButtons} ${j} → ❌ 틀렸어요. (${i}번째 버튼이 ${j}은 아닙니다.)\t현재까지 총 ${ans}번 버튼을 누름.`);
       }
     }
   }
@@ -182,7 +186,7 @@
   ans += k;
   // 정답 시도도 친절히 설명
   const correctSequence = Array.from({ length: k }, (_, idx) => n - idx).join(" ");
-  steps.push(`[${k}단계] 시도: ${correctSequence} → ✅ 정답입니다! 자물쇠가 열렸어요 🔓`);
+  steps.push(`[${k}단계] 시도: ${correctSequence} → ✅ 정답입니다! 자물쇠가 열렸어요 🔓\t현재까지 총 ${ans}번 버튼을 누름.`);
 
   let idx = 0;
   const interval = setInterval(() => {
